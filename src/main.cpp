@@ -50,6 +50,10 @@ BatteryMonitor battery;
 
 void setup()
 {
+    // set the "hold" (GPIO46) pin to a high level (1)
+    pinMode(G46, OUTPUT);
+    digitalWrite(G46, HIGH);
+    
     Serial.begin(serialBaudRate);
     globalTimer = timer_create_default();
 
