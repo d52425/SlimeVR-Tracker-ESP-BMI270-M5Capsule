@@ -25,10 +25,23 @@
 #include "GlobalVars.h"
 #include "status/Status.h"
 
+#include <FastLED.h>
+
+#define PIN_LED    21   // 本体フルカラーLEDの使用端子（G21）
+#define NUM_LEDS   1    // 本体フルカラーLEDの数
+CRGB leds[NUM_LEDS];
+
+#define FLED_STANDBUY 0x808080  //初期化中の色
+#define FLED_ON       0x800080
+#define FLED_OFF      0x000000
+
 namespace SlimeVR
 {
     void LEDManager::setup()
     {
+        FastLED.addLeds<WS2812B, PIN_LED, GRB>(leds, NUM_LEDS);
+        leds[0].setColorCode(FLED_STANDBUY);
+        FastLED.show();
 #if ENABLE_LEDS
         pinMode(m_Pin, OUTPUT);
 #endif
@@ -39,6 +52,8 @@ namespace SlimeVR
 
     void LEDManager::on()
     {
+        leds[0].setColorCode(FLED_ON);
+        FastLED.show();
 #if ENABLE_LEDS
         digitalWrite(m_Pin, LED__ON);
 #endif
@@ -46,6 +61,8 @@ namespace SlimeVR
 
     void LEDManager::off()
     {
+        leds[0].setColorCode(FLED_OFF);
+        FastLED.show();
 #if ENABLE_LEDS
         digitalWrite(m_Pin, LED__OFF);
 #endif
