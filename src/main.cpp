@@ -115,6 +115,26 @@ void setup()
 
 void loop()
 {
+    bool buttonState;
+    static bool buttonPressed = false;
+    static unsigned long buttonPressedTime = 0;
+
+    buttonState = digitalRead(GPIO_NUM_42);
+    if (buttonState == LOW) {
+        if(!buttonPressed) {
+            ledManager.on();
+            buttonPressedTime = millis();
+            buttonPressed = true;
+        }
+    } else {
+        buttonPressed = false;
+    }
+
+    if (buttonPressed && (millis() - buttonPressedTime >= 2000)) {
+        ledManager.off();
+        esp_deep_sleep_start();
+    }
+
     globalTimer.tick();
     SerialCommands::update();
     OTA::otaUpdate();
