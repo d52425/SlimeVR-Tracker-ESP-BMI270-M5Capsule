@@ -1,4 +1,4 @@
-# SlimeVR Tracker firmware for ESP
+# SlimeVR Tracker firmware for M5Capsule
 
 Firmware for ESP8266 / ESP32 microcontrollers and different IMU sensors to use them as a vive-like trackers in VR.
 
